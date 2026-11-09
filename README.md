@@ -2,7 +2,7 @@
 
 [![npm](https://img.shields.io/npm/v/react-hook-extensions)](https://www.npmjs.com/package/react-hook-extensions)
 [![Contributing](https://img.shields.io/badge/contributions-welcome-brightgreen)](CONTRIBUTING.md)
-[![Socket Badge](https://badge.socket.dev/npm/package/react-hook-extensions/0.1.0)](https://socket.dev/npm/package/react-hook-extensions)
+[![Socket Badge](https://badge.socket.dev/npm/package/react-hook-extensions)](https://socket.dev/npm/package/react-hook-extensions)
 Small client hooks for shared state and the URL. ESM only. React 18+ and TanStack Query 5 are peer dependencies.
 
 ```bash
