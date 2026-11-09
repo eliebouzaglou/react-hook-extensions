@@ -1,0 +1,28 @@
+{
+  "name": "react-hook-extensions",
+  "version": "1.0.0",
+  "description": "Hooks we all wish were already built into React.",
+  "keywords": [
+    "react",
+    "hooks",
+    "react",
+    "hooks",
+    "typescript"
+  ],
+  "license": "ISC",
+  "author": "",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "@tanstack/react-query": "^5.107.1",
+    "@tanstack/react-query-devtools": "^5.107.1",
+    "react": "^19.3.1",
+    "react-router-dom": "^7.18.5"
+  },
+  "devDependencies": {
+    "@types/react": "^19.3.0"
+  }
+}
