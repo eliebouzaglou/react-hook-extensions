@@ -84,17 +84,42 @@ function Search() {
 }
 ```
 
-## Typed cache keys
+## Cache keys
 
-Augment `CacheRegistry` to allow only known keys and value types:
+Any string is a valid `key` until you register the ones your app uses:
+
+```bash
+npx react-hook-extensions init
+```
+
+`init` writes `src/hookextensions.config.ts` when a `src` folder exists, and `hookextensions.config.ts` otherwise:
 
 ```ts
+const config = {
+    cacheOpts: {
+        keys: ["theme", "draft"] as const,
+        localStorageKey: "my-app",
+        persist: true,
+    },
+} as const;
+
+export default config;
+
 declare module "react-hook-extensions" {
-    interface CacheRegistry {
-        theme: "light" | "dark";
-        draft: string;
+    interface Register {
+        cacheKeys: (typeof config.cacheOpts.keys)[number];
     }
 }
 ```
+
+Include that file in your TypeScript project. After that, `key` must be one of those names:
+
+```tsx
+useCache("light", { key: "theme" });
+```
+
+The value type still comes from `initial`. Edit the `keys` array to add another name. `init` asks before it overwrites a file that is already there.
+
+Pass `--key theme --key draft` to skip the questions. `--persist` sets `cacheOpts.persist`.
 
 Details and the rest of the options are in each hook's README.

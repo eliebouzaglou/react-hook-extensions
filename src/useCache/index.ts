@@ -2,18 +2,12 @@
 
 import { useCallback, useContext, useMemo, useRef } from "react";
 import { QueryClient, QueryClientContext, useIsRestoring, useQuery } from "@tanstack/react-query";
-import { type CacheKey, type CacheRegistry } from "../cacheRegistry";
+import { type CacheKey } from "../index";
 import { PersistenceEnabledContext } from "../context";
 import { PERSIST_SOURCE } from "../persist";
 import { warnOnce } from "../warn";
 
 const QUERY_KEY_PREFIX = "react-hook-extensions";
-
-type CacheValue<K extends string, T> = [keyof CacheRegistry] extends [never]
-    ? T
-    : K extends keyof CacheRegistry
-      ? CacheRegistry[K]
-      : never;
 
 export type CacheSetter<T> = (value: T | ((prev: T) => T)) => void;
 
@@ -43,9 +37,9 @@ export type UseCacheOptions<K extends string = CacheKey> =
       };
 
 export function useCache<T, K extends CacheKey = CacheKey>(
-    initial: CacheValue<K, T>,
+    initial: T,
     options: UseCacheOptions<K>,
-): UseCacheResult<CacheValue<K, T>> {
+): UseCacheResult<T> {
     const contextClient = useContext(QueryClientContext);
     const isRestoring = useIsRestoring();
     const persistenceEnabled = useContext(PersistenceEnabledContext);
@@ -83,11 +77,11 @@ export function useCache<T, K extends CacheKey = CacheKey>(
         queryClient,
     );
 
-    const setData = useCallback<CacheSetter<CacheValue<K, T>>>(
+    const setData = useCallback<CacheSetter<T>>(
         (value) => {
-            queryClient.setQueryData<CacheValue<K, T>>(queryKey, (prev) => {
+            queryClient.setQueryData<T>(queryKey, (prev) => {
                 const current = prev === undefined ? initialRef.current : prev;
-                return typeof value === "function" ? (value as (prev: CacheValue<K, T>) => CacheValue<K, T>)(current) : value;
+                return typeof value === "function" ? (value as (prev: T) => T)(current) : value;
             });
         },
         [queryClient, queryKey],

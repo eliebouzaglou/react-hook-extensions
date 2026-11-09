@@ -4,3 +4,5 @@ coverage/
 *.tsbuildinfo
 .DS_Store
 .vscode/settings.json
+hookextensions.config.ts
+**/hookextensions.config.ts

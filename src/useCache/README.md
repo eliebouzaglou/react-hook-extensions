@@ -2,8 +2,18 @@
 
 `useState` that stays in sync anywhere you use the same `key`, including after a navigation that keeps the provider mounted.
 
+## Simple Usage
+
 ```tsx
-const [draft, setDraft] = useCache("", {
+const [draft, setDraft] = useCache<User | null>(null, {
+    key: "draft",
+});
+```
+
+## With LocalStorage
+
+```tsx
+const [draft, setDraft] = useCache<User | null>(null, {
     key: "draft",
     persist: true,
     cacheFor: 1000 * 60 * 60 * 24,
@@ -16,15 +26,12 @@ The hook has to render under [`HookExtensionsProvider`](../../README.md). `persi
 
 `cacheFor` is how long the value survives after the last component using it unmounts. With `persist`, it is also how long a saved value can be restored, measured from the last write.
 
-To allow only known keys, augment `CacheRegistry`:
+## Typed keys
 
-```ts
-declare module "react-hook-extensions" {
-    interface CacheRegistry {
-        theme: "light" | "dark";
-        draft: string;
-    }
-}
+`npx react-hook-extensions init` writes `hookextensions.config.ts`. That file lists your keys and registers them so `UseCacheOptions.key` only accepts those names:
+
+```tsx
+useCache("light", { key: "theme" });
 ```
 
-After that, `key` must be one of those names and the value must match.
+The value type still comes from `initial`. Without the config, any string key is allowed.
