@@ -1,0 +1,1 @@
+As long as you are using the same `key`, you can update the state anywhere in your app!

@@ -1,1 +1,1 @@
-// onboarding script 
+// onboarding script that will init a `hookextensions-config.json` file, and ask questios and fill it out for them.

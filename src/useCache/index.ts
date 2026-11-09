@@ -1,3 +1,4 @@
+"use client";
 import { useCallback } from 'react';
 import { useQuery, useQueryClient, useIsRestoring } from '@tanstack/react-query';
 
