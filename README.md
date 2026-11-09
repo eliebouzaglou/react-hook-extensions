@@ -92,7 +92,7 @@ Any string is a valid `key` until you register the ones your app uses:
 npx react-hook-extensions init
 ```
 
-`init` writes `src/hookextensions.config.ts` when a `src` folder exists, and `hookextensions.config.ts` otherwise:
+`init` writes `hookextensions.config.ts` at the project root:
 
 ```ts
 const config = {

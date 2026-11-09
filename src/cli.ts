@@ -85,15 +85,6 @@ async function askKeys(io: PromptIO): Promise<string[]> {
     }
 }
 
-async function directoryExists(dir: string): Promise<boolean> {
-    try {
-        return (await stat(dir)).isDirectory();
-    } catch (error) {
-        if (isNotFound(error)) return false;
-        throw error;
-    }
-}
-
 async function fileKind(file: string): Promise<"file" | "other" | "missing"> {
     try {
         return (await stat(file)).isFile() ? "file" : "other";
@@ -125,7 +116,7 @@ async function run(argv: readonly string[], io: PromptIO, cwd: string): Promise<
         return 1;
     }
 
-    const suggestedPath = args.config ?? defaultConfigPath(await directoryExists(path.join(cwd, "src")));
+    const suggestedPath = args.config ?? defaultConfigPath();
     const configPath = interactive
         ? await askValid(io, `Config file [${suggestedPath}]: `, (raw) => validateConfigPath(raw.trim() || suggestedPath))
         : suggestedPath;

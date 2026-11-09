@@ -140,12 +140,12 @@ describe("init", () => {
         expect(source).toContain('cacheKeys: (typeof config.cacheOpts.keys)[number]');
     });
 
-    it("puts the file in src when that folder exists", async () => {
+    it("always writes the config at the project root", async () => {
         const cwd = await tempDir();
         await mkdir(path.join(cwd, "src"));
         const io = scripted(["", "", "n", "count", ""]);
         expect(await main([], io, cwd)).toBe(0);
-        const source = await readFile(path.join(cwd, "src/hookextensions.config.ts"), "utf8");
+        const source = await readFile(path.join(cwd, "hookextensions.config.ts"), "utf8");
         expect(source).toContain('"count"');
         expect(source).toContain("persist: false");
     });

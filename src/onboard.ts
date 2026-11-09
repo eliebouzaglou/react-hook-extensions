@@ -13,7 +13,7 @@ registers them so UseCacheOptions.key only accepts those names.
 Edit the keys array to add another key. Run init again with --force to replace it.
 
 Options
-  --config <path>         File to write. Default: src/hookextensions.config.ts when src/ exists
+  --config <path>         File to write. Default: hookextensions.config.ts
   --storage-key <name>    localStorage key. Default: react-hook-extensions
   --key <name>            Repeatable cache key name
   --persist               Set cacheOpts.persist to true
@@ -45,8 +45,8 @@ export type CliArgs = {
 
 const IDENTIFIER = /^[A-Za-z_$][A-Za-z0-9_$]*$/;
 
-export function defaultConfigPath(hasSrc: boolean): string {
-    return hasSrc ? `src/${CONFIG_FILENAME}` : CONFIG_FILENAME;
+export function defaultConfigPath(): string {
+    return CONFIG_FILENAME;
 }
 
 export function validateConfigPath(file: string): string {
