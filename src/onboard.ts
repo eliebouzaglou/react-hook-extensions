@@ -145,7 +145,7 @@ export function renderConfigModule(config: HookExtensionsConfig): string {
         "// Cache keys for react-hook-extensions.",
         "// Add a name to keys. That closes UseCacheOptions.key to this list.",
         "",
-        "const config: Config = {",
+        "const config = {",
         "    cacheOpts: {",
     ];
     if (keys.length === 0) {
@@ -164,7 +164,7 @@ export function renderConfigModule(config: HookExtensionsConfig): string {
         `        localStorageKey: ${JSON.stringify(localStorageKey)},`,
         `        persist: ${config.persist},`,
         "    },",
-        "} as const;",
+        "} as const satisfies Config;",
         "",
         "export default config;",
         "",

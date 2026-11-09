@@ -35,7 +35,7 @@ function scripted(answers: string[], isTTY = true): PromptIO & { logs: string[];
         error(message) {
             errors.push(message);
         },
-        close() {},
+        close() { },
     };
 }
 
@@ -53,7 +53,8 @@ describe("renderConfigModule", () => {
                 localStorageKey: "my-app",
                 persist: true,
             }),
-        ).toBe(`// Cache keys for react-hook-extensions.
+        ).toBe(`import type { Config } from 'react-hook-extensions/config';
+// Cache keys for react-hook-extensions.
 // Add a name to keys. That closes UseCacheOptions.key to this list.
 
 const config = {
@@ -65,7 +66,7 @@ const config = {
         localStorageKey: "my-app",
         persist: true,
     },
-} as const;
+} as const satisfies Config;
 
 export default config;
 
@@ -84,7 +85,7 @@ declare module "react-hook-extensions" {
             persist: false,
         });
         expect(source).not.toContain("declare module");
-        expect(source).toContain("keys: [] as const");
+        expect(source).toContain("// add your keys here");
         expect(source).toContain("persist: false");
     });
 });
@@ -233,7 +234,11 @@ export const persists: true = config.cacheOpts.persist;
                         baseUrl: ".",
                         paths: { "react-hook-extensions": [entry] },
                     },
-                    files: ["hookextensions.config.ts", "usage.ts"],
+                    files: [
+                        "hookextensions.config.ts",
+                        "usage.ts",
+                        path.relative(cwd, path.join(repoRoot, "src/types/declarations.d.ts")).split(path.sep).join("/"),
+                    ],
                 },
                 null,
                 2,
