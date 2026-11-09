@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback, useMemo } from "react";
 
-export interface UseHashResult {
+interface UseHashResult {
     /** The raw hash string including the '#' symbol (e.g., "#foo=bar&hello=world") */
     current: string;
     /** A parsed object of key-value pairs from the hash */
