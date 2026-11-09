@@ -2,7 +2,7 @@
 import { useCallback } from 'react';
 import { useQuery, useQueryClient, useIsRestoring } from '@tanstack/react-query';
 
-import type { CacheKeys } from '../../config/re-exports';
+import type { CacheKeys } from '../config/re-exports';
 
 type UseCacheOptions =
     | {

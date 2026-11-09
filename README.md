@@ -1,5 +1,3 @@
 # React Hooks we all wished already existed
 
-
-
-create file `hookextensions-config.json`
+// todo: table of all hooks + link to their readme + 1 liner
